@@ -57,7 +57,7 @@ ul { padding:0 }
 
 }
 
-.main-nav .settings-button {
+/*.main-nav .settings-button {
 	background-image: url('/static/personal/icons/settings.png');
 	background-position: 0 10px;
 	background-repeat: no-repeat;
@@ -66,7 +66,7 @@ ul { padding:0 }
 	width:47px;
 
 
-}
+}*/
 
 #action-list {
 	background-color: #fff;
@@ -79,7 +79,7 @@ ul { padding:0 }
 
 }
 
-.main-nav li .home-button {
+/*.main-nav li .home-button {
 	height: 80px;
 	background-position: 0 10px;
 	background-image: url('/static/icons/home2.png');
@@ -87,7 +87,7 @@ ul { padding:0 }
 	background-size: 250px;
 	width: 250px;
 	margin-left:60px;
-}
+}*/
 
 .main-nav .search {
 	position: absolute;
@@ -97,7 +97,7 @@ ul { padding:0 }
 	padding-top:10px;
 }
 
-.main-nav .profile-button {
+/*.main-nav .profile-button {
 	background-position: 0 10px;
 	background-image: url('/static/personal/icons/profile.png');
 	background-repeat: no-repeat;
@@ -113,7 +113,7 @@ ul { padding:0 }
 	margin-left:980px;
 	width:60px;
 
-}
+}*/
 
 
 .right-side-elements div {
@@ -126,7 +126,7 @@ ul { padding:0 }
 }
 
 /*--------Search-------*/
-.search input[type=text] {
+/*.search input[type=text] {
     width: 250px;
     box-sizing: border-box;
     border: 2px solid #ccc;
@@ -140,7 +140,7 @@ ul { padding:0 }
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
-
+*/
 .search input[type=text]:focus {
     width: 300px;
 }
