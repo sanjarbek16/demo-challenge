@@ -1,0 +1,9 @@
+{% load i18n %}
+
+	<div style="width:100%; max-width:850px; margin:0 auto; margin-top: 15px;" class="clearer">
+        {% for result in results %}
+		<p>{{result.profile.get_screen_name}} scored {{result.score}}</p>
+        {% empty %}
+        <h1>Empty</h1>
+        {% endfor %}
+	</div>

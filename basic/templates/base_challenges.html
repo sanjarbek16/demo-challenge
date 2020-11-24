@@ -1,0 +1,407 @@
+{% load static %}
+{% load i18n %}
+<!doctype html>
+<html lang="en">
+  <head>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112324160-1"></script>
+    <script>
+       window.dataLayer = window.dataLayer || [];
+       function gtag(){dataLayer.push(arguments);}
+       gtag('js', new Date());
+
+       gtag('config', 'UA-112324160-1');
+    </script>
+    <meta charset="UTF-8">
+    <title>{% block title %}Challenges{% endblock %}</title>
+    <meta property="og:description" content="{% block description %}Get the chance to read more about your favourite characters and books!{% endblock %}" />
+    <meta property="og:url" content="{{ request.get_full_path }}" />
+    <meta property="og:image" content="{% static 'icons/logo-big.png' %}" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" type = "text/css"/>
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" type = "text/css"/>
+    <link rel="stylesheet" href="{% static 'css/fleximath.css' %}">
+    <script src="{% static 'js/libercen.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/b084888755.js"></script>
+    <script>
+        var csrftoken = $.cookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        $(document).ready(function(){
+            {% block domready %}
+            {% endblock %}
+        });
+    </script>
+    <style type="text/css">
+    body {
+        font-family: 'Libre Baskerville', serif;
+    }
+    a, h1, h2, h3, h4, h5, p {
+        font-family: 'Libre Baskerville', serif;
+    }
+    .body-main {
+        min-height:750px;
+
+    }
+    a:hover {
+        text-decoration: none!important;
+    }
+    .border-top {
+        border-top:1px solid #bfbaba;
+    }
+    .border-bottom {
+        border-bottom:1px solid #bfbaba;
+    }
+    .border-left {
+        border-left:1px solid #bfbaba;
+    }
+    .border-right {
+        border-right:1px solid #bfbaba;
+    }
+    .border-all {
+        border:1px solid #bfbaba;
+    }
+    .custom-red {
+        background-color:#e64a4a;
+        color:white;
+    }
+    .cke_editor_id_post {
+        width:100%!important;
+    }
+    .cke_editor_id_review {
+        width:100%!important;
+    }
+    .django-ckeditor-widget {
+        width: 100%;
+    }
+    .likes {
+        position: absolute;
+        background-image: url('/static/icons/like.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .comments {
+        position: absolute;
+        background-image: url('/static/icons/comment.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .no-data {
+  text-align: center;
+  padding: 1em 0;
+}
+
+    #notifications {
+      font-size: 1.5em;
+      padding-right: 13px;
+      color: #dddddd;
+    }
+
+    #notifications.new-notifications {
+      color: #428bca;
+    }
+
+    .popover {
+      max-width: 350px;
+      width: 350px;
+    }
+
+    .popover ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    .popover ul li {
+      list-style: none;
+      border-bottom: 1px solid #eeeeee;
+      padding: .4em 0;
+    }
+
+    .popover ul li:last-child {
+      border-bottom: none;
+    }
+
+    .popover ul li .user-picture {
+      width: 45px;
+      float: left;
+    }
+
+    .popover ul li p {
+      font-size: .9em;
+      padding: 0 0 0 .6em;
+      margin-left: 45px;
+      margin-bottom: 0;
+    }
+    ul.all-notifications {
+      padding: 0;
+      margin-top: 1em;
+    }
+
+    ul.all-notifications li {
+      list-style: none;
+      border-bottom: 1px solid #eeeeee;
+      padding: .8em 0;
+    }
+
+    ul.all-notifications li:last-child {
+      border-bottom: none;
+    }
+
+    ul.all-notifications li small {
+      color: #cccccc;
+      font-size: .8em;
+    }
+
+    ul.all-notifications li p {
+      margin: 0;
+    }
+
+    ul.all-notifications li div {
+      margin-left: 40px;
+      padding-left: 1em;
+    }
+
+    ul.all-notifications .user-picture {
+      width: 40px;
+      float: left;
+    }
+    .square {
+        position: relative;
+        width: 100%;
+    }
+
+    .square:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
+    .no-image {
+        position: absolute;
+        background-image: url('/static/icons/no-image.jpg');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .nav-logo {
+        background-image: url('/static/icons/logo.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .nav-logo-link {
+        margin-left:45px;
+        width:200px;
+        height:38px;
+
+    }
+    .backg-image {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .menu-icon {
+        margin-right:10px;
+
+    }
+    .small-profile {
+        position: absolute;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size:cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    .custom-nav {
+        background-color: #a51c30;
+        color: white;
+    }
+    .errorlist {
+        list-style:none;
+
+    }
+    .errorlist li {
+        color: #a94442;
+        background-color: #f2dede;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ebccd1;
+        border-radius: 4px;
+    }
+    .custom-div {
+        max-width:1000px;
+        margin:0 auto;
+        width:100%;
+        padding:15px;
+        margin-top:30px;
+        margin-bottom:200px;
+
+    }
+        ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0,0,0,.5);
+        -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+    }
+    .comment-delete {
+        padding:5px;
+        margin-top:5px;
+        width:1.999%;
+        font-size:10px;
+    }
+    .pcomment-delete {
+        padding: 1px;
+        margin-top:5px;
+        width:1.999%;
+        font-size:10px;
+    }
+    .rcomment-delete {
+        padding: 1px;
+        margin-top:5px;
+        width:1.999%;
+        font-size:10px;
+    }
+    .comment-ul {
+        list-style:none;
+        margin-bottom: 0;
+    }
+    .top-headline {
+        margin-top:20px;
+    }
+    .facebook {
+    width:270px;
+    position: relative;
+    background-color: #3a4894;
+    background-image: url('/static/icons/facebook.png');
+    background-position: -2px -3px;
+    background-repeat: no-repeat;
+    height: 30px;
+    background-size: 30px;
+    border-radius: 5px;
+
+}
+    .google {
+        width:270px;
+        position: relative;
+        margin-top: 10px;
+        background-color: #d0422a;
+        background-image: url('/static/icons/google.png');
+        background-position: 3px 1px;
+        background-repeat: no-repeat;
+        height: 30px;
+        background-size: 30px;
+        border-radius: 5px;
+
+    }
+    </style>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+    <nav class="nav__new">
+      <div id='chal' onclick="location.href='/challenges/'" class="nav__link nav__link--active ripple">
+        <i class="material-icons nav__icon">assignment</i>
+        <span class="nav__text">Challenges</span>
+      </div>
+      <div id='lead' onclick="location.href='/notifications/'" class="nav__link ripple">
+        <span class="material-icons iconify" data-icon="mdi-bell" data-inline="false"></span>
+        <span class="nav__text">Notifications</span>
+      </div>
+      <div onclick="location.href='/{{request.user.username}}/'" id='profile' class="nav__link ripple">
+        <i class="material-icons nav__icon">person</i>
+        <span class="nav__text">Profile</span>
+      </div>
+    </nav>
+    <div class="body-main">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+  </body>
+
+
+
+    <script src="https://redom.js.org/redom.min.js"></script>
+    <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+    <script>
+        const { el, mount, setChildren } = redom;
+    </script>
+
+
+    <script src="https://unpkg.com/popper.js@1.14.4/dist/umd/popper.js" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    
+    
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+  </body>
+</html>

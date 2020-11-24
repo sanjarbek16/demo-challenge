@@ -1,0 +1,93 @@
+{% extends 'base_challenges.html' %}
+
+
+{% block head %}
+
+<style>
+    .book-list {
+        position:relative;
+        width:100%;
+
+    }
+    .book-list:after {
+        content:"";
+        display:block;
+        padding-bottom:158%;
+
+    }
+    .list {
+        width:33%;
+        float:left;
+
+    }
+</style>
+
+{% endblock head %}
+
+
+{% block content %}
+
+<div style="width:100%; max-width:850px; margin:30px auto; min-height:400px; padding:15px;" class="w3-white border-all">
+	<p><b>Invite people you follow to {{challenge.title}}</b></p>
+    <div id="following-list">
+        {% include "challenges/invite_following.html" %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block domready %}
+    var page = 1;
+    var empty_page = false;
+    var block_request = false;
+
+    $(window).scroll(function() {
+        var margin = $(document).height() - $(window).height() - 200;
+        if  ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+		    block_request = true;
+		    page += 1;
+		    $.get('?page=' + page, function(data) {
+		        if(data == '')
+		        {
+		            empty_page = true;
+		        }
+		        else {
+                    block_request = false;
+                    $('#following-list').append(data);
+    	        }
+            });
+    	}
+    });
+
+	$('a.invite').click(function(e){
+		e.preventDefault();
+		var div = $(this).closest("div");
+		$.post('{% url "challenge_invite" %}',
+			{
+				id: $(this).data('id'),
+				action: $(this).data('action'),
+				challenge: $(this).data('challenge'),
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+			function(data){
+				if (data['status'] == 'ok') {
+					var previous_action = $('a.invite', div).data('action');
+					// toggle data-action
+					$('a.invite', div).data('action',
+					previous_action == 'invite' ? 'uninvite' : 'invite');
+					// toggle link text
+					$('a.invite', div).text(
+					previous_action == 'invite' ? 'Uninvite' : 'Invite');
+					if (previous_action == 'invite') {
+						$('a.invite', div).removeClass('custom-green');
+						$('a.invite', div).addClass('custom-red');
+					}
+          			else {
+						$('a.invite', div).removeClass('custom-red');
+						$('a.invite', div).addClass('custom-green');
+					}
+				}
+			}
+		);
+	});
+{% endblock %}

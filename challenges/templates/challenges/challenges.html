@@ -1,0 +1,22 @@
+{% load i18n %}
+
+	<div style="width:100%; max-width:1300px; margin:0 auto;" class="clearer">
+        {% for challenge in challenges %}
+        <div class="card mx-auto" id="7oLatbpwaOHe6GuU">
+        	<div class="card-body bg-light">
+        		<div class="card-title large"><a href="{{challenge.get_absolute_url}}">{{challenge.title}}</a><button data-id="{{ challenge.id }}" data-action="{% if challenge in request.user.profile.joined_challenges.all %}un{% endif %}join" class="w3-round float-right w3-btn custom-{% if challenge in request.user.profile.joined_challenges.all %}red{% else %}green{% endif %} join button">
+			{% if challenge not in request.user.profile.joined_challenges.all %}
+				Join
+			{% else %}
+				Remove
+			{% endif %}
+			</button></div>
+        		<p class="card-title">{{challenge.task}}<br></p>
+        		<p class="card-text">Start time: {{challenge.start_time}}</p>
+        		<p class="card-text">End time: {{challenge.end_time}}</p>
+        	</div>
+        </div>
+        {% empty %}
+        <h1>Empty</h1>
+        {% endfor %}
+	</div>

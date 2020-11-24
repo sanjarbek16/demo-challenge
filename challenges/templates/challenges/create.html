@@ -1,0 +1,48 @@
+{% extends 'base_challenges.html' %}
+
+{% load widget_tweaks %}
+
+{% block head %}
+<script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/jquery.datetimepicker.css"/ >
+<script src="/static/js/jquery.datetimepicker.full.min.js"></script>
+  <script>
+  $( function() {
+    $( "#id_start_time" ).datetimepicker({format:'m/d/Y H:i',});
+    $( "#id_end_time" ).datetimepicker({format:'m/d/Y H:i',});
+  } );
+  </script>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div style="margin-top:30px; max-width:700px; width:90%; margin:10px auto; border:1px solid grey; padding:10px; background-color: #efecec; margin-bottom: 100px;" class="w3-container w3-white">
+    <div>
+        <h2>Create a new challenge</h2>
+        <form action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+              {{hidden}}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+            <div class="form-group">
+              {% for error in field.errors %}
+              <div class="alert alert-danger" >{{ error }}</div>
+            {% endfor %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>{{ field|add_class:'form-control' }}
+            <p class="form-text text-muted">{{ field.help_text }}</p>
+            </div>  
+            {% endfor %}
+            <input class="w3-btn w3-round custom-blue" style="box-shadow:none; color:white" type="submit" value="Create Challenge">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

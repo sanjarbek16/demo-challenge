@@ -1,0 +1,198 @@
+{% extends 'base_challenges.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}{{ challenge.title }}{% endblock title %}
+
+{% block head %}
+<style>
+	.square {
+		position: relative;
+		width: 100%;
+		border-radius: 3px;
+
+	}
+
+	.square:after {
+		content: "";
+		display: block;
+		padding-bottom: 100%;
+	}
+	.square-cover {
+		position: relative;
+		width: 25%;
+		border-radius: 3px;
+
+	}
+
+	.square-cover:after {
+		content: "";
+		display: block;
+		padding-bottom: 160%;
+	}
+
+	.image {
+		position: absolute;
+		background-image: url('http://libercen.s3.amazonaws.com/{{book.cover}}');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		width: 100%;
+		height: 100%;
+	}
+	.clearer{
+		clear:both;overflow:hidden;
+	}
+	.form-control {
+		width:100%;
+	}
+	.small-profile {
+		position: absolute;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size:cover;
+		width: 100%;
+		height: 100%;
+	}
+
+	.button {
+		margin-top: 4px;
+	}
+
+</style>
+<script>
+
+</script>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="border-all" style="margin-top:30px; max-width:800px; width:90%; margin:10px auto;background-color: white; margin-bottom: 100px;">
+	{% if messages %}
+	{% for message in messages %}
+	<div>
+		<div class="alert alert-success alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			{{ message }}
+		</div>
+	</div>
+	{% endfor %}
+	{% endif %}
+	<div class="clearer w3-padding">
+		<div style="float:left; padding-left:10px; width:100%;">
+			<p class="w3-large"><strong>{{challenge.title}}</strong></p>
+
+<!-- 			{% with total_users_liked=book.profile_set.count %}
+				<span class="count">
+				<span class="total">{{ total_users_liked }}</span>
+					user{{ total_users_liked|pluralize }} liked
+				</span>
+				<button data-id="{{ book.id }}" data-action="{% if book in request.user.profile.fav_books.all %}un{% endif %}fav" class="w3-round w3-btn custom-{% if book in request.user.profile.fav_books.all %}red{% else %}green{% endif %} fav button">
+				{% if book not in request.user.profile.fav_books.all %}
+					Add to favourites
+				{% else %}
+					Remove from favourites
+				{% endif %}
+				</button>
+			{% endwith %}
+
+			<p style="margin-top:15px;"><strong>Author: </strong>{{book.author}}</p>
+
+			{% if book.publisher %}
+				<p><strong>Publisher: </strong>{{ book.publisher }}</p>
+			{% endif %}
+
+			{% if book.published %}
+				<p><strong>Published: </strong>{{ book.published }}</p>
+			{% endif %}
+
+			{% if book.page_number  %}
+				<p><strong>Page count: </strong>{{ book.page_number }}</p>
+			{% endif %} -->
+			<button data-id="{{ challenge.id }}" data-action="{% if challenge in request.user.profile.joined_challenges.all %}un{% endif %}join" class="w3-round w3-btn custom-{% if challenge in request.user.profile.joined_challenges.all %}red{% else %}green{% endif %} join button">
+			{% if challenge not in request.user.profile.joined_challenges.all %}
+				Join challenge
+			{% else %}
+				Remove challenge
+			{% endif %}
+			</button>
+			<button onclick="location.href='invite/'" class="w3-round w3-btn custom-blue button">
+				Invite People
+			</button>
+			<button onclick="location.href='leaderboard/'" class="w3-round w3-btn custom-blue button">
+				Leaderboard
+			</button>
+			<p style="margin-top: 10px;"><b>Task:</b></p>
+			<p>{{challenge.task|safe|linebreaks}}</p>
+			<p style="margin-top: 10px;"><b>Criteria:</b></p>
+			<p>{{challenge.criteria|safe|linebreaks}}</p>
+			<img src="/media/{{challenge.challenge_image}}" alt="challenge" style="max-width: 100%;">
+			<p class="card-text" style="margin-top: 10px;">Start time: {{challenge.start_time}}</p>
+        	<p class="card-text">End time: {{challenge.end_time}}</p>
+        	{% if challenge in request.user.profile.joined_challenges.all %}
+        	<form action="." method="post" enctype="multipart/form-data">
+	            {% csrf_token %}
+	            {% for hidden in finish_form.hidden_fields %}
+	              {{hidden}}
+	            {% endfor %}
+
+	            {% for field in finish_form.visible_fields %}
+	            <div class="form-group">
+	              {% for error in field.errors %}
+	              <div class="alert alert-danger" >{{ error }}</div>
+	            {% endfor %}
+	            <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>{{ field|add_class:'form-control' }}
+	            <p class="form-text text-muted">{{ field.help_text }}</p>
+	            </div>  
+	            {% endfor %}
+	            <input class="w3-btn w3-round custom-blue" style="box-shadow:none; color:white" type="submit" value="Submit">
+        	</form>
+        	{% endif %}
+		</div>
+	</div>
+	<hr>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block domready %}
+    var page = 1;
+    var empty_page = false;
+    var block_request = false;
+
+	$('button.join').click(function(e){
+		e.preventDefault();
+		var div = $(this).closest("div");
+		$.post('{% url "join_challenge" %}',
+			{
+				id: $(this).data('id'),
+				action: $(this).data('action'),
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+			function(data){
+				if (data['status'] == 'ok') {
+					var previous_action = $('button.join').data('action');
+					// toggle data-action
+					$('button.join').data('action',
+					previous_action == 'join' ? 'unjoin' : 'join');
+					// toggle link text
+					$('button.join').text(
+					previous_action == 'join' ? 'Remove challenge' : 'Join challenge');
+					if (previous_action == 'join') {
+						$('button.join', div).removeClass('custom-green');
+						$('button.join', div).addClass('custom-red');
+					}
+          			else {
+						$('button.join', div).removeClass('custom-red');
+						$('button.join', div).addClass('custom-green');
+					}
+
+				}
+			}
+		);
+	});
+
+{% endblock %}

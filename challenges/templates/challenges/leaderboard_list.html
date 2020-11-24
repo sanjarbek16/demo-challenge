@@ -1,0 +1,99 @@
+{% extends 'base_challenges.html' %}
+
+
+{% block head %}
+
+<style>
+    .book-list {
+        position:relative;
+        width:100%;
+
+    }
+    .book-list:after {
+        content:"";
+        display:block;
+        padding-bottom:158%;
+
+    }
+    .list {
+        width:33%;
+        float:left;
+
+    }
+</style>
+
+{% endblock head %}
+
+
+{% block content %}
+
+<div style="width:100%; max-width:850px; margin:30px auto; min-height:400px; padding:15px;" class="w3-white border-all">
+    <div id="leaderboard-list">
+    	<div>
+	    	<h4 class="float-left"><b>{{challenge.title}} leaderboard</b></h4>
+	    	<button onclick="location.href='{{challenge.get_absolute_url}}'" class="w3-round w3-btn custom-blue button float-right">Go back</button>
+    	</div>
+        {% include "challenges/leaderboard.html" %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block domready %}
+    var page = 1;
+    var empty_page = false;
+    var block_request = false;
+
+    $(window).scroll(function() {
+        var margin = $(document).height() - $(window).height() - 200;
+        if  ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+		    block_request = true;
+		    page += 1;
+		    $.get('?page=' + page, function(data) {
+		        if(data == '')
+		        {
+		            empty_page = true;
+		        }
+		        else {
+                    block_request = false;
+                    $('#leaderboard-list').append(data);
+    	        }
+            });
+    	}
+    });
+    $('button.join').click(function(e){
+		e.preventDefault();
+		var div = $(this).closest("div");
+		$.post('{% url "join_challenge" %}',
+			{
+				id: $(this).data('id'),
+				action: $(this).data('action')
+			},
+			function(data){
+				if (data['status'] == 'ok') {
+					var previous_action = $('button.join', div).data('action');
+					// toggle data-action
+					$('button.join', div).data('action',
+					previous_action == 'join' ? 'unjoin' : 'join');
+					// toggle link text
+					$('button.join', div).text(
+					previous_action == 'join' ? 'Remove challenge' : 'Join challenge');
+					// update total followers
+					var previous_joiners = parseInt(
+					$('span.count .total', div).text());
+					$('span.count .total', div).text(previous_action == 'join' ?
+					previous_joiners + 1 : previous_joiners - 1);
+					if (previous_action == 'join') {
+						$('button.join', div).removeClass('custom-green');
+						$('button.join', div).addClass('custom-red');
+					}
+          			else {
+						$('button.join', div).removeClass('custom-red');
+						$('button.join', div).addClass('custom-green');
+					}
+
+				}
+			}
+		);
+	});
+{% endblock %}
