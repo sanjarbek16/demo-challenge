@@ -35,6 +35,13 @@ SITE_ID = 1
 
 # Application definition
 INSTALLED_APPS = [
+    'users',
+    'challenges',
+    'activities',
+    'basic',
+    'allauth', #registration app
+    'allauth.socialaccount',
+    'allauth.account',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,13 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.humanize', 
-    'basic',
-    'allauth', #registration app
-    'allauth.socialaccount',
-    'allauth.account',
-    'users',
-    'challenges',
-    'activities',
     'widget_tweaks',
 ]
 
