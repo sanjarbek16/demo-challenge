@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['demo-challenge.herokuapp.com',]
+ALLOWED_HOSTS = ['demo-challenge.herokuapp.com', '127.0.0.1']
 
 SITE_ID = 1
 
@@ -152,7 +152,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEBUG_PROPAGATE_EXCEPTIONS = True
 if DEBUG==False:
