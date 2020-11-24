@@ -126,7 +126,7 @@
 			<p>{{challenge.task|safe|linebreaks}}</p>
 			<p style="margin-top: 10px;"><b>Criteria:</b></p>
 			<p>{{challenge.criteria|safe|linebreaks}}</p>
-			<img src="https://libercen.s3.amazonaws.com/media/{{challenge.challenge_image}}" alt="challenge" style="max-width: 100%;">
+			<img src="https://libercen.s3.amazonaws.com/{{challenge.challenge_image}}" alt="challenge" style="max-width: 100%;">
 			<p class="card-text" style="margin-top: 10px;">Start time: {{challenge.start_time}}</p>
         	<p class="card-text">End time: {{challenge.end_time}}</p>
         	{% if challenge in request.user.profile.joined_challenges.all %}
